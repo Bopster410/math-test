@@ -16,8 +16,11 @@ class ExprApp(tk.Tk):
         self.score_label = tk.Label(self, textvariable=self.score_string, bg='#252526', fg='#b6bbc0', font=('Arial', 15))
         self.update_score()
         self.score_label.grid(row=0, column=0, padx=5, pady=5)
-    
-        self.expression = Expression(1000, 10000)
+
+        # TODO get min/max values from window before the test 
+        min_value = 1000
+        max_value = 10000
+        self.expression = Expression(min_value=min_value, max_value=max_value)
         self.string = tk.StringVar()
         self.update_expr()
 
