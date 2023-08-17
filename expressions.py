@@ -24,6 +24,7 @@ class Expression():
             self.second = randint(self.min, self.first)
             self.answer = self.first - self.second
         else:
+            # TODO change division generation
             self.answer = randint(self.min, self.max)
             self.second = randint(self.min, self.max)
             self.first = self.answer * self.second

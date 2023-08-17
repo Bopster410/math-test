@@ -17,7 +17,7 @@ class ExprApp(tk.Tk):
         self.update_score()
         self.score_label.grid(row=0, column=0, padx=5, pady=5)
     
-        self.expression = Expression()
+        self.expression = Expression(1000, 10000)
         self.string = tk.StringVar()
         self.update_expr()
 
@@ -37,6 +37,7 @@ class ExprApp(tk.Tk):
         self.score_string.set(f'score: {self.score}') 
 
     def enter_cmd(self):
+        # TODO add more input check
         answer = self.input.get()
         answer = answer if answer != '' else '0'
         if int(answer) == self.expression.answer:
