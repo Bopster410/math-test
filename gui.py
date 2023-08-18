@@ -1,4 +1,5 @@
 import tkinter as tk
+import re
 from expressions import Expression
 
 class ExprApp(tk.Tk):
@@ -40,12 +41,13 @@ class ExprApp(tk.Tk):
         self.score_string.set(f'score: {self.score}') 
 
     def enter_cmd(self):
-        # TODO add more input check
         answer = self.input.get()
-        answer = answer if answer != '' else '0'
-        if int(answer) == self.expression.answer:
-            self.update_expr()
-            self.score += 1
+        if re.fullmatch(r'\d+', answer):
+            if int(answer) == self.expression.answer:
+                self.update_expr()
+                self.score += 1
+            else:
+                self.score = 0
         else:
             self.score = 0
         
