@@ -27,7 +27,7 @@ class ExprApp(tk.Tk):
         self.label = tk.Label(self, textvariable=self.string, bg='#252526', fg='#b6bbc0',font=('Arial', 30))
         self.label.grid(row=1, column=0, sticky='nswe')
         
-        self.input = tk.Entry(self,bg='#333333', fg='#b6bbc0', font=('Arial', 20))
+        self.input = tk.Entry(self,bg='#333333', fg='#b6bbc0', insertbackground='white', font=('Arial', 20))
         self.input.grid(row=2, column=0, sticky='nswe')
 
         self.bind('<Return>', lambda e: self.enter_cmd())
