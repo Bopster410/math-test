@@ -30,6 +30,7 @@ class ExprApp(tk.Tk):
         
         self.input = tk.Entry(self,bg='#333333', fg='#b6bbc0', insertbackground='white', font=('Arial', 20))
         self.input.grid(row=2, column=0, sticky='nswe')
+        self.input.focus_set()
 
         self.bind('<Return>', lambda e: self.enter_cmd())
     
