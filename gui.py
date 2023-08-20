@@ -6,17 +6,28 @@ class DialogWindow(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
         self.geometry('600x300')
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
 
         # Lift window on top
         self.lift()
         # Stay on top
         self.attributes('-topmost', True)
         # Create widgets with slight delay, to avoid white flickering of background
-        # self.after(10, self._create_widgets)  
+        self.after(10, self._create_widgets)  
         # Not resizable
         self.resizable(False, False)
         # Make other windows not clickable
         self.grab_set()
+    
+    def _create_widgets(self):
+        self._confirm_input_btn = tk.Button(self, text='Confrm', command=self._confirm_input)
+        self._confirm_input_btn.grid(row=0, column=0)
+    
+    def _confirm_input(self):
+        self.grab_release()
+        self.destroy()
+
 
 class ExprApp(tk.Tk):
     def __init__(self):
@@ -25,8 +36,6 @@ class ExprApp(tk.Tk):
         self.configure(bg='#252526')
         self.rowconfigure(1, weight=1)
         self.columnconfigure(0, weight=1)
-
-        a = DialogWindow(self)
 
         self.score = 0
         self.high_score = 0
@@ -51,6 +60,8 @@ class ExprApp(tk.Tk):
         self.input.focus_set()
 
         self.bind('<Return>', lambda e: self.enter_cmd())
+        
+        a = DialogWindow(self)
     
     def update_expr(self):
         self.expression.gen()
