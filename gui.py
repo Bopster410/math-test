@@ -1,6 +1,7 @@
 import tkinter as tk
 import re
 from expressions import Expression
+from collections import namedtuple
 
 class DialogWindow(tk.Toplevel):
     def __init__(self, master):
@@ -19,6 +20,8 @@ class DialogWindow(tk.Toplevel):
         self.resizable(False, False)
         # Make other windows not clickable
         self.grab_set()
+
+        self._user_input = namedtuple('Input', ['min_val', 'max_val'])(1000, 10000)
     
     def _create_widgets(self):
         self._confirm_input_btn = tk.Button(self, text='Confrm', command=self._confirm_input)
@@ -27,6 +30,10 @@ class DialogWindow(tk.Toplevel):
     def _confirm_input(self):
         self.grab_release()
         self.destroy()
+
+    def get_input(self):
+        self.master.wait_window(self)
+        return self._user_input
 
 
 class ExprApp(tk.Tk):
@@ -45,13 +52,8 @@ class ExprApp(tk.Tk):
         self.update_score()
         self.score_label.grid(row=0, column=0, padx=5, pady=5)
 
-        # TODO get min/max values from window before the test 
-        min_value = 1000
-        max_value = 10000
-        self.expression = Expression(min_value=min_value, max_value=max_value)
-        self.string = tk.StringVar()
-        self.update_expr()
 
+        self.string = tk.StringVar(value='hello!!!')
         self.label = tk.Label(self, textvariable=self.string, bg='#252526', fg='#b6bbc0',font=('Arial', 30))
         self.label.grid(row=1, column=0, sticky='nswe')
         
@@ -61,7 +63,11 @@ class ExprApp(tk.Tk):
 
         self.bind('<Return>', lambda e: self.enter_cmd())
         
-        a = DialogWindow(self)
+        input = DialogWindow(self).get_input()
+        # TODO get min/max values from window before the test 
+        min_value, max_value = input
+        self.expression = Expression(min_value=min_value, max_value=max_value)
+        self.update_expr()
     
     def update_expr(self):
         self.expression.gen()
