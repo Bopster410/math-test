@@ -2,6 +2,10 @@ import tkinter as tk
 import re
 from expressions import Expression
 
+class DialogWindow(tk.Toplevel):
+    def __init__(self):
+        pass
+
 class ExprApp(tk.Tk):
     def __init__(self):
         super().__init__()
