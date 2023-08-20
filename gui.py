@@ -3,8 +3,20 @@ import re
 from expressions import Expression
 
 class DialogWindow(tk.Toplevel):
-    def __init__(self):
-        pass
+    def __init__(self, master):
+        super().__init__(master)
+        self.geometry('600x300')
+
+        # Lift window on top
+        self.lift()
+        # Stay on top
+        self.attributes('-topmost', True)
+        # Create widgets with slight delay, to avoid white flickering of background
+        # self.after(10, self._create_widgets)  
+        # Not resizable
+        self.resizable(False, False)
+        # Make other windows not clickable
+        self.grab_set()
 
 class ExprApp(tk.Tk):
     def __init__(self):
@@ -13,6 +25,8 @@ class ExprApp(tk.Tk):
         self.configure(bg='#252526')
         self.rowconfigure(1, weight=1)
         self.columnconfigure(0, weight=1)
+
+        a = DialogWindow(self)
 
         self.score = 0
         self.high_score = 0
