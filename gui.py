@@ -79,9 +79,10 @@ class ExprApp(tk.Tk):
         self.bind('<Return>', lambda e: self.enter_cmd())
         
         input = DialogWindow(self).get_input()
-        min_value, max_value = input.min_val, input.max_val
-        self.expression = Expression(min_value=min_value, max_value=max_value)
-        self.update_expr()
+        if input:
+            min_value, max_value = input.min_val, input.max_val
+            self.expression = Expression(min_value=min_value, max_value=max_value)
+            self.update_expr()
     
     def update_expr(self):
         self.expression.gen()
