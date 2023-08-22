@@ -6,8 +6,8 @@ from collections import namedtuple
 class DialogWindow(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
-        self.geometry('600x300')
-        self.rowconfigure(0, weight=1)
+        self.geometry('400x200')
+        self.rowconfigure(4, weight=1)
         self.columnconfigure(0, weight=1)
 
         # Lift window on top
@@ -26,19 +26,19 @@ class DialogWindow(tk.Toplevel):
     
     def _create_widgets(self):
         self._min_val_lbl = tk.Label(self, text='Min value:')
-        self._min_val_lbl.grid(row=0, column=0)
+        self._min_val_lbl.grid(row=0, column=0, pady=(30, 0))
 
         self._min_val_entry = tk.Entry(self)
-        self._min_val_entry.grid(row=1, column=0)
+        self._min_val_entry.grid(row=1, column=0, sticky='we', padx=30, pady=(0, 10))
         
-        self._max_val_lbl = tk.Label(self, text='Min value:')
+        self._max_val_lbl = tk.Label(self, text='Max value:')
         self._max_val_lbl.grid(row=2, column=0)
 
         self._max_val_entry = tk.Entry(self)
-        self._max_val_entry.grid(row=3, column=0)
+        self._max_val_entry.grid(row=3, column=0, sticky='we', padx=30)
 
         self._confirm_input_btn = tk.Button(self, text='Confrm', command=self._confirm_input)
-        self._confirm_input_btn.grid(row=4, column=0)
+        self._confirm_input_btn.grid(row=4, column=0, sticky='s', pady=30)
     
     def _confirm_input(self):
         min_val = int(self._min_val_entry.get())
