@@ -82,11 +82,7 @@ class ExprApp(tk.Tk):
 
         self.bind('<Return>', lambda e: self.enter_cmd())
         
-        input = DialogWindow(self).get_input()
-        if input:
-            min_value, max_value = input.min_val, input.max_val
-            self.expression = Expression(min_value=min_value, max_value=max_value)
-            self.update_expr()
+        self.open_menu() 
     
     def update_expr(self):
         self.expression.gen()
@@ -110,7 +106,11 @@ class ExprApp(tk.Tk):
         self.input.delete(0, len(answer))
     
     def open_menu(self):
-        pass
+        input = DialogWindow(self).get_input()
+        if input:
+            min_value, max_value = input.min_val, input.max_val
+            self.expression = Expression(min_value=min_value, max_value=max_value)
+            self.update_expr()
 
 if __name__ == '__main__':
     e = ExprApp()
