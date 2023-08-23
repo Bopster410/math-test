@@ -109,8 +109,10 @@ class ExprApp(tk.Tk):
         input = DialogWindow(self).get_input()
         if input:
             min_value, max_value = input.min_val, input.max_val
-            self.expression = Expression(min_value=min_value, max_value=max_value)
-            self.update_expr()
+            # TODO check this in the dialog window
+            if min_value < max_value:
+                self.expression = Expression(min_value=min_value, max_value=max_value)
+                self.update_expr()
 
 if __name__ == '__main__':
     e = ExprApp()
