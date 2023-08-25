@@ -41,11 +41,13 @@ class DialogWindow(tk.Toplevel):
         self._confirm_input_btn.grid(row=4, column=0, sticky='s', pady=30)
     
     def _confirm_input(self):
-        min_val = int(self._min_val_entry.get())
-        max_val = int(self._max_val_entry.get())
-        self._user_input = self._Input(min_val=min_val, max_val=max_val)
-        self.grab_release()
-        self.destroy()
+        min_val_str = re.fullmatch(r'\d+', self._min_val_entry.get())
+        max_val_str = re.fullmatch(r'\d+', self._max_val_entry.get())
+        if min_val_str and max_val_str:
+            self._user_input = self._Input(min_val=int(min_val_str), max_val=int(max_val_str))
+            self.grab_release()
+            self.destroy()
+        
 
     def get_input(self):
         self.master.wait_window(self)
