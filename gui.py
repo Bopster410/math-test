@@ -7,7 +7,7 @@ class DialogWindow(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
         self.geometry('400x200')
-        self.rowconfigure(4, weight=1)
+        self.rowconfigure(5, weight=1)
         self.columnconfigure(0, weight=1)
 
         # Lift window on top
@@ -26,7 +26,7 @@ class DialogWindow(tk.Toplevel):
     
     def _create_widgets(self):
         self._min_val_lbl = tk.Label(self, text='Min value:')
-        self._min_val_lbl.grid(row=0, column=0, pady=(30, 0))
+        self._min_val_lbl.grid(row=0, column=0, pady=(20, 0))
 
         self._min_val_entry = tk.Entry(self)
         self._min_val_entry.grid(row=1, column=0, sticky='we', padx=30, pady=(0, 10))
@@ -38,7 +38,11 @@ class DialogWindow(tk.Toplevel):
         self._max_val_entry.grid(row=3, column=0, sticky='we', padx=30)
 
         self._confirm_input_btn = tk.Button(self, text='Confrm', command=self._confirm_input)
-        self._confirm_input_btn.grid(row=4, column=0, sticky='s', pady=30)
+        self._confirm_input_btn.grid(row=4, column=0, pady=(10, 0))
+
+        self._error_message = tk.StringVar(value='')
+        self._error_lbl = tk.Label(self, fg='#8d0e0e', textvariable=self._error_message)
+        self._error_lbl.grid(row=5, column=0, sticky='new', pady=5)
     
     def _confirm_input(self):
         min_val_str = re.fullmatch(r'\d+', self._min_val_entry.get())
@@ -47,7 +51,8 @@ class DialogWindow(tk.Toplevel):
             self._user_input = self._Input(min_val=int(min_val_str), max_val=int(max_val_str))
             self.grab_release()
             self.destroy()
-        
+        else:
+            self._error_message.set('Incorrect values!') 
 
     def get_input(self):
         self.master.wait_window(self)
