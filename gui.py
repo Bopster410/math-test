@@ -23,6 +23,9 @@ class DialogWindow(tk.Toplevel):
 
         self._Input = namedtuple('Input', ['min_val', 'max_val'])
         self._user_input = None
+        
+        self.bind('<Return>', lambda e: self._confirm_input())
+    
 
     def _create_widgets(self):
         self._min_val_lbl = tk.Label(self, text='Min value:')
