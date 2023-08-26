@@ -23,7 +23,7 @@ class DialogWindow(tk.Toplevel):
 
         self._Input = namedtuple('Input', ['min_val', 'max_val'])
         self._user_input = None
-    
+
     def _create_widgets(self):
         self._min_val_lbl = tk.Label(self, text='Min value:')
         self._min_val_lbl.grid(row=0, column=0, pady=(20, 0))
@@ -48,7 +48,7 @@ class DialogWindow(tk.Toplevel):
         min_val_str = re.fullmatch(r'\d+', self._min_val_entry.get())
         max_val_str = re.fullmatch(r'\d+', self._max_val_entry.get())
         if min_val_str and max_val_str:
-            self._user_input = self._Input(min_val=int(min_val_str), max_val=int(max_val_str))
+            self._user_input = self._Input(min_val=int(min_val_str.string), max_val=int(max_val_str.string))
             self.grab_release()
             self.destroy()
         else:
