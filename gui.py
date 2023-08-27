@@ -21,6 +21,8 @@ class DialogWindow(tk.Toplevel):
         # Make other windows not clickable
         self.grab_set()
 
+        self.focus()
+
         self._Input = namedtuple('Input', ['min_val', 'max_val'])
         self._user_input = None
         
@@ -51,9 +53,14 @@ class DialogWindow(tk.Toplevel):
         min_val_str = re.fullmatch(r'\d+', self._min_val_entry.get())
         max_val_str = re.fullmatch(r'\d+', self._max_val_entry.get())
         if min_val_str and max_val_str:
-            self._user_input = self._Input(min_val=int(min_val_str.string), max_val=int(max_val_str.string))
-            self.grab_release()
-            self.destroy()
+            min_val_int = int(min_val_str.string)
+            max_val_int = int(max_val_str.string)
+            if min_val_int < max_val_int:
+                self._user_input = self._Input(min_val=min_val_int, max_val=max_val_int)
+                self.grab_release()
+                self.destroy()
+            else:
+                self._error_message.set('Min value must be lower than the max value!')
         else:
             self._error_message.set('Incorrect values!') 
 
@@ -120,9 +127,8 @@ class ExprApp(tk.Tk):
         if input:
             min_value, max_value = input.min_val, input.max_val
             # TODO check this in the dialog window
-            if min_value < max_value:
-                self.expression = Expression(min_value=min_value, max_value=max_value)
-                self.update_expr()
+            self.expression = Expression(min_value=min_value, max_value=max_value)
+            self.update_expr()
 
 if __name__ == '__main__':
     e = ExprApp()
