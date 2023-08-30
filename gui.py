@@ -87,12 +87,12 @@ class ExprApp(tk.Tk):
         super().__init__()
         self.geometry('800x800')
         self.configure(bg='#252526')
-        self.rowconfigure(1, weight=1)
+        self.rowconfigure(2, weight=1)
         self.columnconfigure(1, weight=1)
 
         # Initial values
         self.score = 0
-        self.high_score = 0
+        self.highscore = 0
 
         # Create widgets with slight delay, to avoid white flickering of background
         self.after(10, self._create_widgets)  
@@ -115,6 +115,13 @@ class ExprApp(tk.Tk):
     # Update score label
     def update_score(self):
         self._score_string.set(f'score: {self.score}') 
+    
+    def set_highscore(self, new_highscore):
+        if new_highscore >= 0:
+            self.highscore = new_highscore
+
+    def update_highscore(self):
+        self._highscore_string.set(f'highscore: {self.highscore}')
 
     # Checks the answer
     def enter_cmd(self):
@@ -147,17 +154,23 @@ class ExprApp(tk.Tk):
         self._menu_btn = tk.Button(self, image=self._menu_img, bg='#252526', fg='#252526', activebackground='#4a4a4c', borderwidth=0,command=self.open_menu)
         self._menu_btn.grid(row=0, column=0)
 
+        self._highscore_string = tk.StringVar()
+        self._highscore_label = tk.Label(self, textvariable=self._highscore_string, bg='#252526', fg='#b6bbc0', font=('Arial', 15))
+        self.set_highscore(0)
+        self.update_highscore()
+        self._highscore_label.grid(row=0, column=1, padx=(0, 40), pady=5)
+
         self._score_string = tk.StringVar()
         self._score_label = tk.Label(self, textvariable=self._score_string, bg='#252526', fg='#b6bbc0', font=('Arial', 15))
         self.update_score()
-        self._score_label.grid(row=0, column=1, padx=(0, 40), pady=5)
+        self._score_label.grid(row=1, column=1, padx=(0, 40), pady=5)
 
         self._expression_string = tk.StringVar(value='hello!!!')
         self._expression_label = tk.Label(self, textvariable=self._expression_string, bg='#252526', fg='#b6bbc0',font=('Arial', 30))
-        self._expression_label.grid(row=1, column=0, columnspan=2, sticky='nswe')
+        self._expression_label.grid(row=2, column=0, columnspan=2, sticky='nswe')
         
         self._answer_entry = tk.Entry(self,bg='#333333', fg='#b6bbc0', insertbackground='white', font=('Arial', 20))
-        self._answer_entry.grid(row=2, column=0, columnspan=2, sticky='nswe')
+        self._answer_entry.grid(row=3, column=0, columnspan=2, sticky='nswe')
         self._answer_entry.focus_set()
 
 
