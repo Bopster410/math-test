@@ -134,6 +134,9 @@ class ExprApp(tk.Tk):
                 self.update_expr()
                 self.score += 1
             else:
+                if self.score > self.highscore:
+                    self.set_highscore(self.score)
+                    self.update_highscore()
                 self.score = 0
         else:
             self.score = 0
