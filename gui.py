@@ -1,5 +1,4 @@
-import tkinter as tk
-import re
+import tkinter as tk, re, shelve
 from expressions import Expression
 from collections import namedtuple
 
@@ -92,7 +91,7 @@ class ExprApp(tk.Tk):
 
         # Initial values
         self.score = 0
-        self.highscore = 0
+        self.highscore = self.read_highcore_from_db()
 
         # Create widgets with slight delay, to avoid white flickering of background
         self.after(10, self._create_widgets)  
@@ -122,6 +121,16 @@ class ExprApp(tk.Tk):
 
     def update_highscore(self):
         self._highscore_string.set(f'highscore: {self.highscore}')
+
+    def read_highcore_from_db(self):
+        try:
+            with shelve.open('data/user_score') as db:
+                if 'highscore' not in db.keys():
+                    return 0
+                else:
+                    return db['highscore']
+        except FileNotFoundError:
+            return 0
 
     # Checks the answer
     def enter_cmd(self):
@@ -159,7 +168,6 @@ class ExprApp(tk.Tk):
 
         self._highscore_string = tk.StringVar()
         self._highscore_label = tk.Label(self, textvariable=self._highscore_string, bg='#252526', fg='#b6bbc0', font=('Arial', 15))
-        self.set_highscore(0)
         self.update_highscore()
         self._highscore_label.grid(row=0, column=1, padx=(0, 40), pady=5)
 
