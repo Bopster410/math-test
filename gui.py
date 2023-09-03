@@ -90,6 +90,7 @@ class ExprApp(tk.Tk):
         self.columnconfigure(1, weight=1)
 
         # Initial values
+        self.is_highscore_changed = False
         self.score = 0
         self.highscore = self.read_highcore_from_db()
 
@@ -100,6 +101,7 @@ class ExprApp(tk.Tk):
 
         # Enter button causes enter_cmd function to work
         self.bind('<Return>', lambda e: self.enter_cmd())
+        self.protocol('WM_DELETE_WINDOW', self._on_exit)
         
         # Open menu and get initial values
         self.open_menu() 
@@ -118,6 +120,7 @@ class ExprApp(tk.Tk):
     def set_highscore(self, new_highscore):
         if new_highscore >= 0:
             self.highscore = new_highscore
+            self.is_highscore_changed = True
 
     def update_highscore(self):
         self._highscore_string.set(f'highscore: {self.highscore}')
@@ -183,6 +186,16 @@ class ExprApp(tk.Tk):
         self._answer_entry = tk.Entry(self,bg='#333333', fg='#b6bbc0', insertbackground='white', font=('Arial', 20))
         self._answer_entry.grid(row=3, column=0, columnspan=2, sticky='nswe')
         self._answer_entry.focus_set()
+    
+    def _on_exit(self):
+        if self.is_highscore_changed:
+            with shelve.open('data/user_score') as db:
+                db['highscore'] = self.highscore
+        elif self.score > self.highscore:
+            with shelve.open('data/user_score') as db:
+                db['highscore'] = self.score
+        
+        self.destroy()
 
 
 if __name__ == '__main__':
