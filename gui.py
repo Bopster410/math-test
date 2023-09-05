@@ -174,7 +174,7 @@ class ExprApp(tk.Tk):
         self.update_highscore()
         self._highscore_label.grid(row=0, column=1, padx=(0, 40), pady=5)
         
-        self._reset_highscore_btn = tk.Button(self, text='reset')
+        self._reset_highscore_btn = tk.Button(self, text='reset', command=self._reset_highscore_cmd)
         self._reset_highscore_btn.grid(row=1, column=1, padx=(0, 40))
 
         self._score_string = tk.StringVar()
@@ -190,6 +190,9 @@ class ExprApp(tk.Tk):
         self._answer_entry.grid(row=4, column=0, columnspan=2, sticky='nswe')
         self._answer_entry.focus_set()
 
+    def _reset_highscore_cmd(self):
+        self.set_highscore(0)
+        self.update_highscore()
     
     def _on_exit(self):
         if self.is_highscore_changed:
