@@ -174,7 +174,8 @@ class ExprApp(tk.Tk):
         self.update_highscore()
         self._highscore_label.grid(row=0, column=1, padx=(0, 40), pady=5)
         
-        self._reset_highscore_btn = tk.Button(self, text='reset', command=self._reset_highscore_cmd)
+        self._reset_highscore_btn = tk.Button(self, text='reset', command=self._reset_highscore_cmd, bg='#1e1e1e', fg='#b6bbc0',
+                                              activeforeground='#b6bbc0', activebackground='#4a4a4c', font=('Arial', 15), borderwidth=0)
         self._reset_highscore_btn.grid(row=1, column=1, padx=(0, 40))
 
         self._score_string = tk.StringVar()
