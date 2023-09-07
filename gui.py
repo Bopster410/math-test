@@ -172,23 +172,23 @@ class ExprApp(tk.Tk):
         self._highscore_string = tk.StringVar()
         self._highscore_label = tk.Label(self, textvariable=self._highscore_string, bg='#252526', fg='#b6bbc0', font=('Arial', 15))
         self.update_highscore()
-        self._highscore_label.grid(row=0, column=1, padx=(0, 40), pady=5)
+        self._highscore_label.grid(row=0, column=1, padx=(20, 0), pady=5)
         
         self._reset_highscore_btn = tk.Button(self, text='reset', command=self._reset_highscore_cmd, bg='#1e1e1e', fg='#b6bbc0',
                                               activeforeground='#b6bbc0', activebackground='#4a4a4c', font=('Arial', 15), borderwidth=0)
-        self._reset_highscore_btn.grid(row=1, column=1, padx=(0, 40))
+        self._reset_highscore_btn.grid(row=0, column=2)
 
         self._score_string = tk.StringVar()
         self._score_label = tk.Label(self, textvariable=self._score_string, bg='#252526', fg='#b6bbc0', font=('Arial', 15))
         self.update_score()
-        self._score_label.grid(row=2, column=1, padx=(0, 40), pady=5)
+        self._score_label.grid(row=2, column=0, columnspan=3, pady=5)
 
         self._expression_string = tk.StringVar(value='hello!!!')
         self._expression_label = tk.Label(self, textvariable=self._expression_string, bg='#252526', fg='#b6bbc0',font=('Arial', 30))
-        self._expression_label.grid(row=3, column=0, columnspan=2, sticky='nswe')
+        self._expression_label.grid(row=3, column=0, columnspan=3, sticky='nswe')
         
         self._answer_entry = tk.Entry(self,bg='#333333', fg='#b6bbc0', insertbackground='white', font=('Arial', 20))
-        self._answer_entry.grid(row=4, column=0, columnspan=2, sticky='nswe')
+        self._answer_entry.grid(row=4, column=0, columnspan=3, sticky='nswe')
         self._answer_entry.focus_set()
 
     def _reset_highscore_cmd(self):
