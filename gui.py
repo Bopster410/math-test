@@ -27,6 +27,7 @@ class DialogWindow(tk.Toplevel):
         self._user_input = None
         
         self.bind('<Return>', lambda e: self._confirm_input())
+        self.bind('<Escape>', lambda e: self.destroy())
 
     def _create_widgets(self):
         # Label for minimum value
