@@ -103,6 +103,8 @@ class ExprApp(tk.Tk):
         # Enter button causes enter_cmd function to work
         self.bind('<Return>', lambda e: self.enter_cmd())
         self.protocol('WM_DELETE_WINDOW', self._on_exit)
+    
+        self.bind('<Escape>', lambda e: self._on_exit())
         
         # Open menu and get initial values
         self.open_menu() 
